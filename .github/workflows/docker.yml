@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: react-app
-      IMAGE_NAME: frontend
+      DOCKER_REPO: raghava99
+      IMAGE_NAME: react-app
       TAG: experimental
     
     steps:
