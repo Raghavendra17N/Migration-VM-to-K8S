@@ -24,4 +24,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
          push: true
-         tags: raghava99/$IMAGE_NAME:$TAG
+         tags: ${{ secrets.DOCKER_USER }}/$IMAGE_NAME:$TAG
