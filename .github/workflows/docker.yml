@@ -25,4 +25,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWD }}
       - name: Push image to docker hub
         run: |-
+          docker images
           docker push $DOCKER_REPO/$IMAGE_NAME:$TAGS
