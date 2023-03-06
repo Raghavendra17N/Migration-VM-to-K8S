@@ -1,0 +1,24 @@
+.label {
+  margin-bottom: 4px;
+  margin-top: 10px;
+  color: #666666;
+  font-size: 12px;
+}
+.checkbox-div{
+    display: flex;
+}
+
+.input {
+  color: #666666;
+  width: 100%;
+  padding: 8px;
+  height: 32px;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  background-color: var(--whiteColor);
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid var(--orangeColor);
+}

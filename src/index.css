@@ -1,13 +1,68 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", sans-serif;
+}
+:root {
+  --yellowColor:#FFB600;
+  --blackTextColor: #333333;
+  --redColor:#E0301E;
+  --greenColor:#175D2D;
+  --footerColor: #2d2d2d;
+  --successColor:#006652;
+  --successBgColor:#DCE9E7;
+  --failureColor:#AA2417;
+  --failureBgColor:#FBE4E1;
+  --blackColor: #2d2d2d;
+  --greyColor: #666666;
+  --lightGreyColor: #dddddd;
+  --whiteColor: #ffffff;
+  --mainBackgroundColor: #f2f2f2;
+  --lightWhiteColor: #f7f7f7;
+  --orangeColor: #d04a02;
+  --headerShadowColor: #31393f33;
+  --cardShadowColor: #0000000d;
+  --greyFontColor: #767676;
+  --greyBorderColor: #dddddd;
+  --iconColor: #474747;
+  --backdropColor: #1b1a1a7a;
+  --uploadBorder:#DBDBDB;
+  --actionBoxShadowColor:#00000029;
+  --notificationGreyColor:#999999;
+}
+body {
+  background-color: var(--mainBackgroundColor);
+  width: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body,#root{
+  min-height: 100vh;
+}
+.App{
+  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.main-content{
+  margin-bottom: auto;
+  /* width: 100vw; */
+}
+.horizontal-line1 {
+  height: 0.5px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: var(--greyBorderColor);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border: none;
+}
+.horizontal-line2 {
+  height: 0.5px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: var(--greyBorderColor);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border: none;
 }

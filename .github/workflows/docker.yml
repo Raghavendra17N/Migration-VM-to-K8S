@@ -1,0 +1,28 @@
+name: React app on Container
+
+on:
+  push:
+    branches: [ main ]
+  pull_request: 
+    branches: [ main ]
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REPO: react-app
+      IMAGE_NAME: frontend
+      TAG: experimental
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker image
+        run: docker build -t $DOCKER_REPO/$IMAGE_NAME:$TAG .
+      - name: Authenticate Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWD }}
+      - name: Push image to docker hub
+        run: |-
+          docker push $DOCKER_REPO/$IMAGE_NAME:$TAGS
