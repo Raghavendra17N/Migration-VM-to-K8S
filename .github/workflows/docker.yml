@@ -10,14 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: raghava99
       IMAGE_NAME: react-app
       TAG: experimental
     
     steps:
       - uses: actions/checkout@v2
       - name: Build docker image
-        run: docker build -t $DOCKER_REPO/$IMAGE_NAME:$TAG .
+        run: docker build -t raghava99/$IMAGE_NAME:$TAG .
       - name: Authenticate Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
@@ -26,4 +25,4 @@ jobs:
       - name: Push image to docker hub
         run: |-
           docker images
-          docker push $DOCKER_REPO/$IMAGE_NAME:$TAGS
+          docker push raghava99/$IMAGE_NAME:$TAGS
