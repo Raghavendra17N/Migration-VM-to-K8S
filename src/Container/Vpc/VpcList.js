@@ -18,8 +18,8 @@ const VpcList = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       setIsLoading(true);
-      console.log('/api/list_existing_vpc/${ProjectId}')
-       fetch('/api/list_existing_vpc/${ProjectId}')
+      console.log(`${process.env.REACT_APP_API_URL}/api/list_existing_vpc`)
+       fetch(`${process.env.REACT_APP_API_URL}/api/list_existing_vpc`)
         .then((response) => response.json())
         .then((data) => {
            setIsLoading(false);
