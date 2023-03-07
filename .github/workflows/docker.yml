@@ -19,7 +19,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
           image: raghava99/$IMAGE_NAME
-          tags: $TAGS
+          tags: latest
           registry: docker.io
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWD }}
