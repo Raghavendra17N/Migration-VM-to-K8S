@@ -1,26 +1,21 @@
-#Use an official Node.js runtime as a parent image
+#Use an official Python runtime as a parent image
 
-FROM node:18-alpine
+FROM python:3.9
 
 # Set the working directory inside the container
 
-WORKDIR /app
+WORKDIR /backend
 
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
+# Copy the requirements.txt file to the container
+COPY ./requirements.txt /backend/requirements.txt
 
 # Install the dependencies
-RUN npm install
+RUN pip install --no-cache-dir --upgrade -r /backend/requirements.txt
 
 # Copy the remaining application code to the container
-COPY . .
+COPY ./app /backend/app
 
 # Build the application
-RUN npm run build
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
-# Expose port 3000
-EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
 
