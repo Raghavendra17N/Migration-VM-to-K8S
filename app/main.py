@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/list_existing_vpc/{ProjectId}")
+@app.get("/list_existing_vpc/")
 async def list_vpc():
     file_data = "file.json"
     data=TinyDB(file_data)
