@@ -16,8 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/list_existing_vpc/")
-async def list_vpc():
+@app.get("/list_existing_vpc/{project_id}")
+async def list_vpc(project_id):
     file_data = "file.json"
     data=TinyDB(file_data)
     data.insert({"project_id":"charged-muse-376504"})
@@ -29,6 +29,6 @@ async def details():
     response = data.all()
     return response
 
-@app.post("/creat_vpc")
+@app.post("/create_vpc")
 async def create_vpc(request: Request):
     return "success"
