@@ -1,6 +1,6 @@
 #Use an official Node.js runtime as a parent image
 
-FROM node:18-alpine
+FROM node:18-alpine as react-build
 
 # Set the working directory inside the container
 
@@ -28,7 +28,7 @@ RUN npm run build
 FROM nginx:1.21
 
 # Copy the production-ready build from the build stage to the Nginx container
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=react-build /app/build /usr/share/nginx/html
 
 # Copy the Nginx configuration file to the container
 COPY nginx.conf /etc/nginx/nginx.conf
