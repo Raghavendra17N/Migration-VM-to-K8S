@@ -4,17 +4,17 @@ FROM node:18-alpine
 
 # Set the working directory inside the container
 # Copy the package.json and package-lock.json files to the container
-COPY package*.json /app/react-todolist/react-todolist/
+COPY package*.json /app
 
 # Set the working directory inside the container
-WORKDIR /app/react-todolist/react-todolist/
+WORKDIR /app
 
 
 # Install the dependencies
 RUN npm install
 
 # Copy the remaining application code to the container
-COPY . /app/react-todolist/react-todolist/
+COPY . /app
 
 # Build the application
 #RUN npm run build
