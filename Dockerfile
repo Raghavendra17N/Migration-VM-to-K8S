@@ -1,28 +1,29 @@
 #Use an official Node.js runtime as a parent image
 
-FROM node:18-alpine as react-build
+FROM node:18-alpine
 
 # Set the working directory inside the container
-
-WORKDIR /app
-
 # Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
+COPY package*.json /app/react-todolist/react-todolist/
+
+# Set the working directory inside the container
+WORKDIR /app/react-todolist/react-todolist/
+
 
 # Install the dependencies
 RUN npm install
 
 # Copy the remaining application code to the container
-COPY . .
+COPY . /app/react-todolist/react-todolist/
 
 # Build the application
-RUN npm run build
+#RUN npm run build
 
 # # Expose port 3000
 EXPOSE 3000
 
 # # Start the application
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
 
 # Use the official Nginx v1.21 image as the base image for serving the React app
 # FROM nginx:1.21
