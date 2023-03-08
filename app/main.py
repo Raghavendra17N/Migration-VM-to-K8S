@@ -20,8 +20,13 @@ app.add_middleware(
 async def list_vpc(project_id):
     file_data = "file.json"
     data=TinyDB(file_data)
+    vpc_list = []
+    project = project_id
+    project_list = [project]
+    vpc_list.append("default")
+    data_vpc=dict.fromkeys(project_list,vpc_list)
     data.insert({"project_id":"charged-muse-376504"})
-    return {"charged-muse-376504":"default"}
+    return data_vpc
 
 @app.get("/details")
 async def details():
@@ -31,4 +36,6 @@ async def details():
 
 @app.post("/create_vpc")
 async def create_vpc(request: Request):
-    return "success"
+    vpc = await request.json()
+    response = "success"
+    return response
