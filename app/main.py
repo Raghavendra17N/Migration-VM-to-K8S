@@ -30,7 +30,7 @@ async def list_vpc(project_id):
 
 @app.get("/details")
 async def details():
-    data = TinyDB('file.json')
+    data = TinyDB('/var/file.json')
     response = data.all()
     return response
 
