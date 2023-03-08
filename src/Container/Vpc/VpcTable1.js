@@ -24,8 +24,8 @@ const VpcTable = ({ data, handleUpdate, handleDelete, handleEmpty }) => {
 
     setButtonText("Deploying...");
     setIsDeploying(true);
-    console.log(`${process.env.REACT_APP_API_URL}/create_vpc`);
-    fetch(`${process.env.REACT_APP_API_URL}/create_vpc`, {
+    console.log('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/creat_vpc');
+    fetch('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/creat_vpc', {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
