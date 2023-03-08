@@ -18,7 +18,7 @@ app.add_middleware(
 
 @app.get("/list_existing_vpc/{project_id}")
 async def list_vpc(project_id):
-    file_data = "file.json"
+    file_data = "/var/file.json"
     data=TinyDB(file_data)
     vpc_list = []
     project = project_id
