@@ -18,8 +18,8 @@ const VpcList = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       setIsLoading(true);
-      console.log('http://'+`${process.env.REACT_APP_HOST}`+`${process.env.REACT_APP_PORT}`+'/list_existing_vpc/'+`${ProjectId}`)
-       fetch('http://'+`${process.env.REACT_APP_HOST}`+`${process.env.REACT_APP_PORT}`+'/list_existing_vpc/'+`${ProjectId}`)
+      console.log('http://'+`${process.env.REACT_APP_HOST}`+`${process.env.REACT_APP_INGRESS_PATH}`+'/list_existing_vpc/'+`${ProjectId}`)
+       fetch('http://'+`${process.env.REACT_APP_HOST}`+`${process.env.REACT_APP_INGRESS_PATH}`+'/list_existing_vpc/'+`${ProjectId}`)
         .then((response) => response.json())
         .then((data) => {
            setIsLoading(false);
