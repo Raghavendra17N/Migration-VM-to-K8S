@@ -14,7 +14,7 @@ WORKDIR /app
 RUN npm install
 
 # Copy the remaining application code to the container
-COPY . /app
+COPY . .
 
 # Build the application
 #RUN npm run build
