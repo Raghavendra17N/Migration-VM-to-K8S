@@ -9,6 +9,8 @@ COPY package*.json /app/
 # Set the working directory inside the container
 WORKDIR /app
 
+ENV PORT 3000
+ENV HOST 0.0.0.0
 
 # Install the dependencies
 RUN npm install
@@ -16,11 +18,12 @@ RUN npm install
 # Copy the remaining application code to the container
 COPY . /app/
 
+CMD npm start
 # Build the application
 #RUN npm run build
 
 # # Expose port 3000
-EXPOSE 3000
+#EXPOSE 3000
 
 # # Start the application
 #CMD ["npm", "start"]
