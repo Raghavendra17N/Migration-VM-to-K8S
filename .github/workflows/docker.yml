@@ -15,11 +15,22 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v4
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
-          image: raghava99/$IMAGE_NAME
-          tags: v1, cloud_run
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USER }}
+          username: $${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWD }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: raghava99/react-app:stable , raghava99/react-app:cloud_run:exp
+      # - name: Build and Push Docker Image
+      #   uses: mr-smithers-excellent/docker-build-push@v4
+      #   with:
+      #     image: raghava99/$IMAGE_NAME
+      #     tags: v1, cloud_run
+      #     registry: docker.io
+      #     username: ${{ secrets.DOCKER_USER }}
+      #     password: ${{ secrets.DOCKER_PASSWD }}
