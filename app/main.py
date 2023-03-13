@@ -3,6 +3,7 @@ import json
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from tinydb import TinyDB
+from pymongo import MongoClient
 
 app = FastAPI()
 
@@ -15,6 +16,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+host = os.environ['monogohost']
+Client=MongoClient(host,27017)
+list_db=Client.list_database_names()
+if "infra_details" in list_db:
+    print("Infra_deatils DB exists")
+else:
+    Client.infra_details
+if "infra_col" in colls:
+    print("Collection Exists")
+else:
+    
 
 @app.get("/list_existing_vpc/{project_id}")
 async def list_vpc(project_id):
