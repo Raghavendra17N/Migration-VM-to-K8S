@@ -23,7 +23,7 @@ user_name = os.environ['USER']
 passwd = os.environ['PASSWD']
 port = os.environ['PORT']
 # host = "localhost"
-Client=MongoClient(f'mongodb://{user_name}:{urllib.parse.quote_plus(passwd)}@{host}:{port}/')
+Client=MongoClient(f'mongodb://{user_name}:{urllib.parse.quote_plus(passwd)}@{host}/')
 list_db=Client.list_database_names()
 if "infra_details" in list_db:
     print("Infra_deatils DB exists")
