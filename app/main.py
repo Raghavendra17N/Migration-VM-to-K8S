@@ -5,6 +5,7 @@ from fastapi.requests import Request
 from tinydb import TinyDB
 from pymongo import MongoClient
 import os
+import urllib.parse
 
 app = FastAPI()
 
@@ -17,9 +18,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# host = os.environ['monogohost']
-host = "localhost"
-Client=MongoClient(host,27017)
+host = os.environ['MONGO_HOST']
+user_name = os.environ['USER']
+passwd = os.environ['PASSWD']
+port = os.environ['PORT']
+# host = "localhost"
+Client=MongoClient(f'mongodb://{user_name}:{urllib.parse.quote_plus(passwd)}@{host}:{port}/')
 list_db=Client.list_database_names()
 if "infra_details" in list_db:
     print("Infra_deatils DB exists")
