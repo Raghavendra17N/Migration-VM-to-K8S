@@ -1,16 +1,17 @@
 import os
 from google.cloud.devtools import cloudbuild_v1
-from functions_framework import http
+import functions_framework
 
 project_id = os.getenv["project_id"]
 trigger_id = os.getenv["trigger_name"]
 
 # Create a Build client
-client = cloudbuild_v1.CloudBuildClient()
 
-@http
-def cloud_build(request: http.HttpRequest) -> http.HttpResponse:
+
+@functions_framework.http
+def cloud_build(request):
     # Build the Cloud Build trigger request
+    client = cloudbuild_v1.CloudBuildClient()
     request = cloudbuild_v1.RunBuildTriggerRequest(
         project_id=f"{project_id}",
         trigger_id=f"{trigger_id}",
@@ -21,3 +22,5 @@ def cloud_build(request: http.HttpRequest) -> http.HttpResponse:
     response = operation.result()
     # Check if the request was successful
     print(response)
+
+    return 'Success'

@@ -1,2 +1,4 @@
 google-cloud-build
 functions-framework
+flask
+google-cloud-error-reporting
