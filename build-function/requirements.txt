@@ -1,2 +1,2 @@
-google-cloud
+google-cloud-build
 functions-framework
