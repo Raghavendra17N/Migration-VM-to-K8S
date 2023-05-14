@@ -16,6 +16,7 @@ RUN pip install --no-cache-dir --upgrade -r /backend/requirements.txt
 COPY ./app /backend/app
 
 # Build the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "app.logging:app","--worker-class","uvicorn.workers.UvicornWorker","--bind", "0.0.0.0:8000", "--workers", "4","--access-logfile","/var/gunicorn.log","--error-logfile","/var/gunicorn_error.log","--log-level","info"]
 
 

@@ -6,6 +6,16 @@ from tinydb import TinyDB
 from pymongo import MongoClient
 import os
 import urllib.parse
+import logging
+
+LOG_FORMAT = '%(asctime)s - %(remote_addr)s - %(levelname)s - %(message)s'
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
+logger = logging.getLogger(__name__)
+
+app_handler = logging.FileHandler('app.log')
+app_handler.setLevel(logging.INFO)
+app_handler.setFormatter(logging.Formatter(LOG_FORMAT))
+logger.addHandler(app_handler)
 
 app = FastAPI()
 
@@ -26,12 +36,12 @@ port = os.environ['PORT']
 Client=MongoClient(f'mongodb://{user_name}:{urllib.parse.quote_plus(passwd)}@{host}/')
 list_db=Client.list_database_names()
 if "infra_details" in list_db:
-    print("Infra_deatils DB exists")
+    logger.info("Infra_deatils DB exists")
 else:
     Client.infra_details
 colls = Client.infra_details.list_collection_names()
 if "infra_cols" in colls:
-    print("Collection Exists")
+    logger.info("Collection Exists")
 else:
     Client.infra_details.infra_cols
 
@@ -39,6 +49,7 @@ else:
 async def list_vpc(project_id):
     # file_data = "/var/file.json"
     # data=TinyDB(file_data)
+    logger.info("Endpoint list_existing_vpc accessed")
     vpc_list = []
     project = project_id
     project_list = [project]

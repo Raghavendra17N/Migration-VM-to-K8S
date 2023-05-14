@@ -34,4 +34,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: raghava99/backend-fastapi:mongodb      
+          tags: raghava99/backend-fastapi:logging      
