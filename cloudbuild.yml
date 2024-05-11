@@ -6,3 +6,4 @@ steps:
       - '-c'
       - |
           echo "Hello Slack trigger"
+logsBucket: 'gs://charged-muse-376504-iac-tf-state'
