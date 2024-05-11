@@ -1,36 +1,75 @@
-resource "google_service_account" "default" {
-  account_id   = "service-account-id"
-  display_name = "Service Account"
+resource "random_string" "suffix" {
+  length  = 4
+  special = false
+  upper   = false
 }
 
-resource "google_container_cluster" "primary" {
-  name     = "my-gke-cluster"
-  location = "us-central1-a"
+resource "google_compute_network" "main" {
+  project                 = var.project_id
+  name                    = "cft-gke-test-${random_string.suffix.result}"
+  auto_create_subnetworks = false
+}
 
-  # We can't create a cluster with no node pool defined, but we want to only use
-  # separately managed node pools. So we create the smallest possible default
-  # node pool and immediately delete it.
-  remove_default_node_pool = false
-  initial_node_count       = 1
-  node_config{
-    disk_size_gb = 10
+resource "google_compute_subnetwork" "main" {
+  project       = var.project_id
+  name          = "cft-gke-test-${random_string.suffix.result}"
+  ip_cidr_range = "10.0.0.0/17"
+  region        = var.region
+  network       = google_compute_network.main.self_link
+
+  secondary_ip_range {
+    range_name    = "cft-gke-test-pods-${random_string.suffix.result}"
+    ip_cidr_range = "192.168.0.0/18"
+  }
+
+  secondary_ip_range {
+    range_name    = "cft-gke-test-services-${random_string.suffix.result}"
+    ip_cidr_range = "192.168.64.0/18"
   }
 }
 
-# resource "google_container_node_pool" "primary_preemptible_nodes" {
-#   name       = "my-node-pool"
-#   location   = "us-central1"
-#   cluster    = google_container_cluster.primary.name
-#   node_count = 1
+provider "google" {
+  region = var.region
+}
 
-#   node_config {
-#     preemptible  = true
-#     machine_type = "e2-micro"
+data "google_client_config" "default" {}
 
-#     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-#     service_account = google_service_account.default.email
-#     oauth_scopes    = [
-#       "https://www.googleapis.com/auth/cloud-platform"
-#     ]
-#   }
-# }
+provider "kubernetes" {
+  host                   = "https://${module.gke.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+}
+
+module "gke" {
+  source  = "terraform-google-modules/kubernetes-engine/google"
+  version = "~> 30.0"
+
+  project_id = var.project_id
+  regional   = false
+  region     = var.region
+  zones      = [var.zone]
+
+  name = "cluster${var.cluster_name_suffix}"
+
+  network           = google_compute_network.main.name
+  subnetwork        = google_compute_subnetwork.main.name
+  ip_range_pods     = google_compute_subnetwork.main.secondary_ip_range[0].range_name
+  ip_range_services = google_compute_subnetwork.main.secondary_ip_range[1].range_name
+
+  service_account     = "create"
+  deletion_protection = false
+  node_pools = [
+    {
+      name         = "node-pool"
+      autoscaling  = false
+      auto_upgrade = true
+      node_count   = 2
+      disk_size_gb = 20
+      machine_type = "e2-medium"
+      preemptible  = true
+      spot = false
+      min_count = 1
+      max_count = 2
+    },
+  ]
+}

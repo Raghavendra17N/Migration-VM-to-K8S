@@ -1,9 +1,11 @@
 steps:
   # Docker Build
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'hashicorp/terraform:latest'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-          echo "Hello Slack trigger"
+          terraform init
+          terraform plan
+          terraform apply --auto-approve
 logsBucket: 'gs://charged-muse-376504-iac-tf-state'
