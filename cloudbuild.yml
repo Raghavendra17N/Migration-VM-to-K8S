@@ -1,7 +1,7 @@
 steps:
   # Docker Build
   - name: 'hashicorp/terraform:latest'
-    entrypoint: 'bash'
+    entrypoint: 'sh'
     args:
       - '-c'
       - |
