@@ -7,5 +7,4 @@ steps:
       - |
           terraform init
           terraform plan
-          terraform apply --auto-approve
 logsBucket: 'gs://charged-muse-376504-iac-tf-state'
