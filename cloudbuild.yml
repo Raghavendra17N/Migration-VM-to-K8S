@@ -1,5 +1,11 @@
 steps:
   # Docker Build
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Build Started"}' https://hooks.slack.com/services/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
   - name: 'hashicorp/terraform:latest'
     entrypoint: 'sh'
     args:
@@ -7,4 +13,10 @@ steps:
       - |
           terraform init
           terraform plan
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Build Complete"}' https://hooks.slack.com/services/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
 logsBucket: 'gs://charged-muse-376504-iac-tf-state'
